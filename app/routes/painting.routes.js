@@ -1,21 +1,24 @@
-module.exports = app => {
-    const paintings = require("../controllers/painting.controller.js");
+const CONST = require('../config/constants');
 
-    // Create a new Painting
-    app.post("/paintings", paintings.create);
+const table = CONST.tableName_painting;
+
+module.exports = app => {
+    const itemController = require("../controllers/item.controller.js");
+
+    app.post("/paintings", itemController.create(table));
 
     // Retrieve all Paintings
-    app.get("/paintings", paintings.findAll);
+    app.get("/paintings", itemController.findAll(table));
 
-    // Retrieve a single Painting with paintingId
-    app.get("/paintings/:paintingId", paintings.findOne);
+    // Retrieve a single Painting with id
+    app.get("/paintings/:id", itemController.findOne(table));
 
-    // Update a Painting with paintingId
-    app.put("/paintings/:paintingId", paintings.update);
+    // Update a Painting with id
+    app.put("/paintings/:id", itemController.update(table));
 
-    // Delete a Painting with paintingId
-    app.delete("/paintings/:paintingId", paintings.delete);
+    // Delete a Painting with id
+    app.delete("/paintings/:id", itemController.delete(table));
 
     // Create a new Painting
-    app.delete("/paintings", paintings.deleteAll);
+    app.delete("/paintings", itemController.deleteAll(table));
 };
