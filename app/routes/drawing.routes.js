@@ -6,20 +6,20 @@ module.exports = app => {
     const itemController = require("../controllers/item.controller.js");
 
     // Create a new Drawing
-    app.post("/drawings", itemController.create(table));
+    app.post("/dessins", itemController.create(table));
 
     // Retrieve all Drawings
-    app.get("/drawings", itemController.findAll(table));
+    app.get("/dessins", itemController.findAll(table));
 
     // Retrieve a single Drawing with id
-    app.get("/drawings/:id", itemController.findOne(table));
+    app.get("/dessins/:id", itemController.findOne(table));
 
     // Update a Drawing with id
-    app.put("/drawings/:id", itemController.update(table));
+    app.put("/dessins/:id", itemController.update(table));
 
     // Delete a Drawing with id
-    app.delete("/drawings/:id", itemController.delete(table));
+    app.delete("/dessins/:id", itemController.delete(table));
 
     // Delete all Drawings
-    app.delete("/drawings", itemController.deleteAll(table));
+    app.delete("/dessins", itemController.deleteAll(table));
 };
