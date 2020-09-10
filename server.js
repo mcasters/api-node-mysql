@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const vhost = require('vhost');
 
+const hostname = 'api.localhost';
+const port = 3001;
 const app = express();
 
 // parse requests of content-type: application/json
@@ -20,7 +23,12 @@ require("./app/routes/sculpture.routes.js")(app);
 require("./app/routes/content.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
 
+const api = express();
+
+// set the sub-domain
+api.use(vhost(hostname, app));
+
 // set port, listen for requests
-app.listen(3001, () => {
-    console.log("Server is running on port 3001.");
+api.listen(port, () => {
+    console.log(`Server is running on http://${hostname}:${port}/`);
 });
