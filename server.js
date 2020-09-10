@@ -18,6 +18,7 @@ require("./app/routes/painting.routes.js")(app);
 require("./app/routes/drawing.routes.js")(app);
 require("./app/routes/sculpture.routes.js")(app);
 require("./app/routes/content.routes.js")(app);
+require("./app/routes/user.routes.js")(app);
 
 // set port, listen for requests
 app.listen(3001, () => {
