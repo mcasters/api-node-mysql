@@ -58,16 +58,9 @@ Item.getAll = (table, result) => {
 };
 
 Item.updateById = (id, item, table, result) => {
-    const itemQuery = `UPDATE ${table} SET title = ?, date = ?, technique = ?, description = ?, height = ?, width = ? WHERE id = ?`;
-    const itemParam = [item.title, item.date, item.technique, item.description, item.height, item.width, id];
-
-    const sculptureQuery = `UPDATE ${table} SET title = ?, date = ?, technique = ?, description = ?, height = ?, width = ?, length = ? WHERE id = ?`;
-    const sculptureParam = [item.title, item.date, item.technique, item.description, item.height, item.width, item.length, id];
-
-    const isSculpture = table === CONST.tableName_sculpture;
-    sql.query(
-        isSculpture ? sculptureQuery : itemQuery,
-        isSculpture ? sculptureParam : itemParam,
+       sql.query(
+        `UPDATE ${table} SET ? WHERE id = ?`,
+        [item, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
