@@ -1,5 +1,6 @@
 node_modules
 .idea
 notes
+.env
 
 package-lock.json

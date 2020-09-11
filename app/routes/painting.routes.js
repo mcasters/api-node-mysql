@@ -5,20 +5,20 @@ const table = CONST.tableName_painting;
 module.exports = app => {
     const itemController = require("../controllers/item.controller.js");
 
-    app.post("/peintures", itemController.create(table));
+    app.post("/paintings", itemController.create(table));
 
     // Retrieve all Paintings
-    app.get("/peintures", itemController.findAll(table));
+    app.get("/paintings", itemController.findAll(table));
 
     // Retrieve a single Painting with id
-    app.get("/peintures/:id", itemController.findOne(table));
+    app.get("/paintings/:id", itemController.findOne(table));
 
     // Update a Painting with id
-    app.put("/peintures/:id", itemController.update(table));
+    app.put("/paintings/:id", itemController.update(table));
 
     // Delete a Painting with id
-    app.delete("/peintures/:id", itemController.delete(table));
+    app.delete("/paintings/:id", itemController.delete(table));
 
     // Create a new Painting
-    app.delete("/peintures", itemController.deleteAll(table));
+    app.delete("/paintings", itemController.deleteAll(table));
 };
