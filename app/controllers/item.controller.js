@@ -29,6 +29,22 @@ exports.findAll = table => (req, res) => {
     });
 };
 
+exports.getByPart = table => (req, res) => {
+    Item.getByPart(req.query.part, req.query.year, table, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found ${table} with part ${req.query.part} in ${req.query.year}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error retrieving ${table} with part " + ${req.query.part} in ${req.query.year}`
+                });
+            }
+        } else res.send(data);
+    });
+};
+
 exports.findOne = table => (req, res) => {
     Item.findById(req.params.id, table, (err, data) => {
         if (err) {

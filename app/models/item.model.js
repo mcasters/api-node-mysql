@@ -26,6 +26,47 @@ Item.create = (newItem, table, result) => {
     });
 };
 
+Item.getAll = (table, result) => {
+    sql.query(`SELECT * FROM ${table} ORDER BY date`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log(`${table} : `, res);
+        result(null, res);
+    });
+};
+
+Item.getByPart = (part, year, table, result) => {
+    let start;
+    let end;
+    if (part === '0') {
+        start = new Date(year, 0, 1);
+        end = new Date(year, 11, 31);
+    } else if (part === '1') {
+        start = new Date(year, 0, 1);
+        end = new Date(year, 5, 31);
+    } else if (part === '2') {
+        start = new Date(year, 6, 1);
+        end = new Date(year, 11, 31);
+    } else {
+        throw new Error('wrong part');
+    }
+    sql.query(`SELECT * FROM ${table} WHERE date > ? AND date < ? ORDER BY date`, [start, end], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log(`${table} : `, res);
+        result(null, res);
+    });
+};
+
+
 Item.findById = (id, table, result) => {
     sql.query(`SELECT * FROM ${table} WHERE id = ?`, id, (err, res) => {
         if (err) {
@@ -41,19 +82,6 @@ Item.findById = (id, table, result) => {
         }
 
         result({ kind: "not_found" }, null);
-    });
-};
-
-Item.getAll = (table, result) => {
-    sql.query(`SELECT * FROM ${table}`, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-
-        console.log(`${table} : `, res);
-        result(null, res);
     });
 };
 

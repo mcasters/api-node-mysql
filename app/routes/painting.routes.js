@@ -8,7 +8,10 @@ module.exports = app => {
     app.post("/paintings", itemController.create(table));
 
     // Retrieve all Paintings
-    app.get("/paintings", itemController.findAll(table));
+    // app.get("/paintings", itemController.findAll(table));
+
+    // Retrieve Paintings into part
+    app.get("/paintings", itemController.getByPart(table));
 
     // Retrieve a single Painting with id
     app.get("/paintings/:id", itemController.findOne(table));
