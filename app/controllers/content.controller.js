@@ -38,7 +38,23 @@ exports.findOne = (req, res) => {
                 });
             } else {
                 res.status(500).send({
-                    message: `Error retrieving content with id " + ${req.params.id}`
+                    message: `Error retrieving content with id ${req.params.id}`
+                });
+            }
+        } else res.send(data);
+    });
+};
+
+exports.findByKey = (req, res) => {
+    Content.findByKey(req.query.keycontent, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found content with keycontent : ${req.query.keycontent}`
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error retrieving content with keycontent : ${req.query.keycontent}`
                 });
             }
         } else res.send(data);

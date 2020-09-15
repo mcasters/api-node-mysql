@@ -5,10 +5,13 @@ module.exports = app => {
     app.post("/contents", contentController.create);
 
     // Retrieve all Contents
-    app.get("/contents", contentController.findAll);
+    // app.get("/contents", contentController.findAll);
 
     // Retrieve a single Content with id
     app.get("/contents/:id", contentController.findOne);
+
+    // Retrieve a single Content with key
+    app.get("/contents", contentController.findByKey);
 
     // Update a Content with id
     app.put("/contents/:id", contentController.update);

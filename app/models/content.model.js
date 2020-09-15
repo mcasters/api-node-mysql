@@ -1,7 +1,7 @@
 const sql = require('./db.js');
 
 const Content = function(content) {
-    this.key = content.key;
+    this.keyContent = content.keyContent;
     this.text = content.text;
 };
 
@@ -13,8 +13,21 @@ Content.create = (content, result) => {
             return;
         }
 
-        console.log(`created Content : `, { id: res.insertId, ...content });
+        console.log(`Created Content : `, { id: res.insertId, ...content });
         result(null, { id: res.insertId, ...content });
+    });
+};
+
+Content.getAll = result => {
+    sql.query(`SELECT * FROM Content`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log(`Content : `, res);
+        result(null, res);
     });
 };
 
@@ -36,18 +49,24 @@ Content.findById = (id, result) => {
     });
 };
 
-Content.getAll = result => {
-    sql.query(`SELECT * FROM Content`, (err, res) => {
+Content.findByKey = (keyContent, result) => {
+    sql.query(`SELECT * FROM Content WHERE key_content = ?`, keyContent, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
-        console.log(`Content : `, res);
-        result(null, res);
+        if (res.length) {
+            console.log(`found Content : `, res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        result({ kind: "not_found" }, null);
     });
 };
+
 
 Content.updateById = (id, content, result) => {
     sql.query(

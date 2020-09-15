@@ -10,7 +10,7 @@ module.exports = app => {
     // Retrieve all Paintings
     // app.get("/paintings", itemController.findAll(table));
 
-    // Retrieve Paintings into part
+    // Retrieve Paintings by part
     app.get("/paintings", itemController.getByPart(table));
 
     // Retrieve a single Painting with id
